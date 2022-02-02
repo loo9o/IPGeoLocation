@@ -206,10 +206,12 @@ class IpGeoLocationLib:
         IpGeoLocObjs = []
                     
         for target in self.Targets:
-            IpGeoLocObjs.append(self.__retrieveGeolocation(target))
-            if len(self.Targets)>=150:
-                sleep(.500) #1/2 sec - ip-api will automatically ban any IP address doing over 150 requests per minute
-                
+            try:
+                IpGeoLocObjs.append(self.__retrieveGeolocation(target))
+                if len(self.Targets)>=150:
+                    sleep(.500) #1/2 sec - ip-api will automatically ban any IP address doing over 150 requests per minute
+            except:
+                print("Error en: "+target)
         return IpGeoLocObjs
         
         
